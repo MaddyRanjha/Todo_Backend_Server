@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose =require("mongoose");
 const cors = require("cors");
 
+const PORT = process.env.PORT || 9000;
+
 //App config
 const app= express();
 app.use(express.json());
@@ -133,4 +135,4 @@ app.get("/",(req,res)=>{
     res.send("Response from BackEnd")
 })
 
-app.listen(9000, () => console.log("Be started"))
+app.listen(PORT, () => console.log("Be started"))
