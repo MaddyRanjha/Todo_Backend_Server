@@ -11,9 +11,9 @@ app.use(cors());
 
 //connection with
 mongoose.set("strictQuery", false);
-const mongoURI = `mongodb+srv://Ranjha:Maddy123@cluster0.4pzor98.mongodb.net/reminderAppDB`;
+const MONGO_URI = process.env.MONGO_URI;
 mongoose
-  .connect(mongoURI, {
+  .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
