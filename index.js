@@ -9,13 +9,6 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
 
-//DB Config
-
-// mongoose.connect('mongodb://localhost:27017/reminderAppDB',{
-//     useNewUrlParse: true,
-//     useUnifiedTopology: true
-// },()=> console.log("DB Connected"))
-
 //connection with
 mongoose.set("strictQuery", false);
 const mongoURI = `mongodb+srv://Ranjha:Maddy123@cluster0.4pzor98.mongodb.net/reminderAppDB`;
@@ -69,18 +62,17 @@ setInterval(() => {
                             //     .done()
 
                             
-                                const accountSid = 'AC5e807deec0ebebe0d9ad9b8b68deaac9'; 
-                                const authToken = '674d0ee703c062326d1d1e01a14b1e9c'; 
-                                const client = require('twilio')(accountSid, authToken); 
+                                const ACCOUNT_SID = process.env.ACCOUNT_SID; 
+                                const AUTH_TOKEN = process.env.AUTH_TOKEN; 
+                                const client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN); 
                                 
                                 client.messages 
-                                .create({ 
-                                    body: 'Your appointment is coming up on July 21 at 3PM', 
-                                    from: 'whatsapp:+14155238886',       
-                                    to: 'whatsapp:+919878627770' 
-                                }) 
-                                .then(message => console.log(message.sid)) 
-                                .done();
+                                    .create({ 
+                                        body: `${reminder.reminderMsg} + ${reminder.remindAt}`, 
+                                        from: 'whatsapp:+14155238886',       
+                                        to: 'whatsapp:+919878627770' 
+                                    }) 
+                                    .then(message => console.log(message.sid))
 
                                                        
 
