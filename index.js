@@ -3,8 +3,6 @@ const express = require("express");
 const mongoose =require("mongoose");
 const cors = require("cors");
 
-const PORT = process.env.PORT || 9000;
-
 //App config
 const app= express();
 app.use(express.json());
@@ -20,9 +18,9 @@ app.use(cors());
 
 //connection with
 mongoose.set("strictQuery", false);
-const MONGO_URI = process.env.MONGO_URI;
+const mongoURI = `mongodb+srv://Ranjha:Maddy123@cluster0.4pzor98.mongodb.net/reminderAppDB`;
 mongoose
-  .connect(MONGO_URI, {
+  .connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -58,18 +56,34 @@ setInterval(() => {
                             if(err){
                                 console.log(err)
                             }
+                            // const accountSid = process.env.ACCOUNT_SID 
+                            // const authToken = process.env.AUTH_TOKEN
+                            // const client = require('twilio')(accountSid, authToken); 
+                            // client.messages 
+                            //     .create({ 
+                            //         body: reminder.reminderMsg, 
+                            //         from: 'whatsapp:+14155238886',       
+                            //         to: 'whatsapp:+918888888888' //YOUR PHONE NUMBER INSTEAD OF 8888888888
+                            //     }) 
+                            //     .then(message => console.log(message.sid)) 
+                            //     .done()
+
                             
-                                const ACCOUNT_SID = process.env.ACCOUNT_SID; 
-                                const AUTH_TOKEN = process.env.AUTH_TOKEN; 
-                                const client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN); 
+                                const accountSid = 'AC5e807deec0ebebe0d9ad9b8b68deaac9'; 
+                                const authToken = '674d0ee703c062326d1d1e01a14b1e9c'; 
+                                const client = require('twilio')(accountSid, authToken); 
                                 
                                 client.messages 
-                                    .create({ 
-                                        body: `${reminder.reminderMsg} + ${reminder.remindAt}`, 
-                                        from: 'whatsapp:+14155238886',       
-                                        to: 'whatsapp:+919878627770' 
-                                    }) 
-                                    .then(message => console.log(message.sid))
+                                .create({ 
+                                    body: 'Your appointment is coming up on July 21 at 3PM', 
+                                    from: 'whatsapp:+14155238886',       
+                                    to: 'whatsapp:+919878627770' 
+                                }) 
+                                .then(message => console.log(message.sid)) 
+                                .done();
+
+                                                       
+
                         })
                     }
                 }
@@ -135,4 +149,4 @@ app.get("/",(req,res)=>{
     res.send("Response from BackEnd")
 })
 
-app.listen(PORT, () => console.log("Be started"))
+app.listen(9000, () => console.log("Be started"))
